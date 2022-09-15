@@ -1,0 +1,26 @@
+# Server port setting
+server:
+  port: 8777
+
+# Logging setting
+logging:
+  level:
+    org:
+      springframework: INFO
+
+# Use hot restart
+spring:
+  main:
+    allow-circular-references: true
+
+# JWT setting
+jwt:
+  # 15 days = 60 * 60 * 24 * 3 seconds
+  expiration: 1296000
+  prefix: "Bearer "
+  authorization: Authorization
+  secret: hz1xH4l2WaqaOvv7AK3GtUfFN5vnKKGLZ2u1Ysqdtk4=
+
+# All scheduling
+schedule:
+  updateEveryFriday: 0 0 1,6,12,18 ? * 5 # Every friday 1,6,12,18 o'clock
