@@ -2,6 +2,8 @@ package com.eden.hackerdesktopapi.service.impl;
 
 
 import com.eden.hackerdesktopapi.constant.enums.ProviderEnum;
+import com.eden.hackerdesktopapi.constant.enums.ResultEnum;
+import com.eden.hackerdesktopapi.constant.exceptions.CustomizedException;
 import com.eden.hackerdesktopapi.model.Feed;
 import com.eden.hackerdesktopapi.model.News;
 import com.eden.hackerdesktopapi.model.Provider;
@@ -46,28 +48,37 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public List<News> getWeeklyNews(ProviderEnum type) {
-        // Get the provider and its news id list
-        Provider provider = providerRepository.findProviderByName(type.getName());
-        List<String> newsIdList = provider.getNewsIds();
+        // Check if type is News
+        if (!type.getType().equals("News")) {
+            // It is not news provider, return exception
+            throw new CustomizedException(ResultEnum.INVALID_PARAM, "Not news provider");
+        }
 
-        // Get all news
+        // Only get news when provider exist
         List<News> news = new ArrayList<>();
-        newsIdList.forEach(id -> news.add(newsRepository.findById(id).get()));
 
-        // Return news
+        if (providerRepository.existsProviderByName(type.getName())) {
+            // Get provider and delete old news
+            Provider provider = providerRepository.findProviderByName(type.getName());
+
+            if (provider.getNewsIds() != null) {
+                List<String> newsIdList = provider.getNewsIds();
+
+                // Get all news
+                newsIdList.forEach(id -> news.add(newsRepository.findById(id).get()));
+            }
+        }
+
+        // If exists, return all news, else return empty list
         return news;
     }
 
     @Override
     public Map<String, List<News>> getAllWeeklyNews() {
-        // Get all provider types and iterate them to get all news
-        //List<List<News>> allNews = new ArrayList<>();
-        //Arrays.stream(ProviderEnum.values()).forEach(type -> {
-        //    List<News> newsList = getWeeklyNews(type);
-        //    allNews.add(newsList);
-        //});
         Map<String, List<News>> allNews = new HashMap<>();
-        Arrays.stream(ProviderEnum.values()).forEach(type -> {
+        Arrays.stream(ProviderEnum.values())
+                .filter(type -> type.getType().equals("News"))
+                .forEach(type -> {
             List<News> newsList = getWeeklyNews(type);
             allNews.put(type.getName(), newsList);
         });
@@ -79,6 +90,7 @@ public class NewsServiceImpl implements NewsService {
     public void updateHackerNewsWeekly() throws FeedException, IOException {
         // Get the provider, feed and its news id list
         Provider provider = getProviderAndDeleteOldNews(ProviderEnum.HACKERWEEKLYNEWS);
+        provider.setType(ProviderEnum.HACKERWEEKLYNEWS.getType());
         Feed feed = feedRepository.findFeedByTitle(ProviderEnum.HACKERWEEKLYNEWS.getFeedTitle());
 
         List<String> newsIdList = new ArrayList<>();
@@ -145,6 +157,7 @@ public class NewsServiceImpl implements NewsService {
     public void updateOverflowNewsWeekly() throws FeedException, IOException {
         // Get the provider, feed and its news id list
         Provider provider = getProviderAndDeleteOldNews(ProviderEnum.OVERFLOWWEEKLYNEWS);
+        provider.setType(ProviderEnum.OVERFLOWWEEKLYNEWS.getType());
         Feed feed = feedRepository.findFeedByTitle(ProviderEnum.OVERFLOWWEEKLYNEWS.getFeedTitle());
 
         List<String> newsIdList = new ArrayList<>();
@@ -204,6 +217,7 @@ public class NewsServiceImpl implements NewsService {
     public void updateInfoQNewsWeekly() throws FeedException, IOException {
         // Get the provider, feed and its news id list
         Provider provider = getProviderAndDeleteOldNews(ProviderEnum.INFOQWEEEKLYNEWS);
+        provider.setType(ProviderEnum.INFOQWEEEKLYNEWS.getType());
         Feed feed = feedRepository.findFeedByTitle(ProviderEnum.INFOQWEEEKLYNEWS.getFeedTitle());
 
         List<String> newsIdList = new ArrayList<>();
@@ -247,27 +261,33 @@ public class NewsServiceImpl implements NewsService {
         // Get the feed
         Feed feed = feedRepository.findFeedByTitle(type.getFeedTitle());
 
-        // If hacer news provider not exist, create it
+        // If hacer news provider not exist, create it and return
         if (!providerRepository.existsProviderByName(type.getName())) {
             Provider provider = new Provider();
             provider.setName(type.getName());
             provider.setFeedId(feed.getId());
-            providerRepository.save(provider);
+            return provider;
         }
 
-        // Get provider and its news id list
-        Provider provider = providerRepository.findProviderByName(type.getName());
-        List<String> newsIdList = provider.getNewsIds();
+        // Only process the news providers
+        if (type.getType().equals("News")) {
+            // If provider exist and contains newsIds, delete all news and the id list
+            if (providerRepository.existsProviderByNameAndNewsIdsIsNotNull(type.getName())) {
+                // Get provider and its news id list
+                Provider provider = providerRepository.findProviderByName(type.getName());
+                List<String> newsIdList = provider.getNewsIds();
 
-        // Delete all now news
-        if (!newsIdList.isEmpty()) {
-            newsIdList.forEach(id -> {
-                if (newsRepository.existsById(id)) {
-                    newsRepository.deleteById(id);
-                }
-            });
+                newsIdList.forEach(id -> {
+                    if (newsRepository.existsById(id)) {
+                        newsRepository.deleteById(id);
+                    }
+                });
+
+                return provider;
+            }
         }
 
-        return provider;
+        // It is not news provider, return exception
+        throw new CustomizedException(ResultEnum.INVALID_PARAM, "Not news provider");
     }
 }

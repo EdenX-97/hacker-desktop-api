@@ -54,7 +54,7 @@ public class NewsController {
         try {
             newsService.getAllWeeklyNews();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(e);
         }
         return ReturnResultUtil.success(newsService.getAllWeeklyNews());
     }

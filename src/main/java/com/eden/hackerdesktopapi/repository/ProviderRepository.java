@@ -17,4 +17,6 @@ public interface ProviderRepository extends CrudRepository<Provider, String> {
     Boolean existsProviderByName(String name);
 
     Provider findProviderByName(String name);
+
+    Boolean existsProviderByNameAndNewsIdsIsNotNull(String name);
 }

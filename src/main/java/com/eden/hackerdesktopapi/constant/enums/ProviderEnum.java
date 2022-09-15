@@ -5,17 +5,20 @@ import lombok.Getter;
 
 @Getter
 public enum ProviderEnum {
-    HACKERWEEKLYNEWS("Hacker News", "Hacker Newsletter Archive Feed"),
-    OVERFLOWWEEKLYNEWS("Overflow News", "Stack Overflow Blog"),
-    INFOQWEEEKLYNEWS("InfoQ News", "InfoQ - News"),
-    ACCIDENTALTECHPODCAST("Accidental Tech", "Accidental Tech Podcast");
+    HACKERWEEKLYNEWS("Hacker News", "Hacker Newsletter Archive Feed", "News"),
+    OVERFLOWWEEKLYNEWS("Overflow News", "Stack Overflow Blog", "News"),
+    INFOQWEEEKLYNEWS("InfoQ News", "InfoQ - News", "News"),
+    ACCIDENTALTECHPODCAST("Accidental Tech", "Accidental Tech Podcast", "Podcasts");
 
     private final String name;
 
     private final String feedTitle;
 
-    ProviderEnum(String name, String feedTitle) {
+    private final String type;
+
+    ProviderEnum(String name, String feedTitle,  String type) {
         this.name = name;
         this.feedTitle = feedTitle;
+        this.type = type;
     }
 }
