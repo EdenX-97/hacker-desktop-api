@@ -12,8 +12,6 @@ import com.eden.hackerdesktopapi.repository.NewsRepository;
 import com.eden.hackerdesktopapi.repository.ProviderRepository;
 import com.eden.hackerdesktopapi.service.intf.NewsService;
 import com.eden.hackerdesktopapi.utils.RSSUtil;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonFactoryBuilder;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +19,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

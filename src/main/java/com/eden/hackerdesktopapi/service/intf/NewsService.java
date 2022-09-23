@@ -1,10 +1,8 @@
 package com.eden.hackerdesktopapi.service.intf;
 
-import com.eden.hackerdesktopapi.constant.consists.Result;
 import com.eden.hackerdesktopapi.constant.enums.ProviderEnum;
 import com.eden.hackerdesktopapi.model.News;
 import com.rometools.rome.io.FeedException;
-//import com.sun.corba.se.spi.ior.ObjectId;
 
 import java.io.IOException;
 import java.util.List;

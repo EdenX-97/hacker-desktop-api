@@ -51,11 +51,6 @@ public class NewsController {
      */
     @GetMapping("/news/getAllWeeklyNews")
     public Result<?> getAllWeeklyNews() {
-        try {
-            newsService.getAllWeeklyNews();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
         return ReturnResultUtil.success(newsService.getAllWeeklyNews());
     }
 
@@ -63,7 +58,7 @@ public class NewsController {
      * Update hacker weekly news
      */
     @PostMapping("/news/updateHackerNewsWeekly")
-    @Scheduled(cron = "${schedule.updateEveryFriday}")
+    //@Scheduled(cron = "${schedule.updateEveryFriday}")
     public void updateHackerNewsWeekly() throws FeedException, IOException {
         newsService.updateHackerNewsWeekly();
     }
@@ -72,7 +67,7 @@ public class NewsController {
      * Update overflow weekly news
      */
     @PostMapping("/news/updateOverflowNewsWeekly")
-    @Scheduled(cron = "${schedule.updateEveryFriday}")
+    //@Scheduled(cron = "${schedule.updateEveryFriday}")
     public void updateOverflowNewsWeekly() throws FeedException, IOException {
         newsService.updateOverflowNewsWeekly();
     }
@@ -81,7 +76,7 @@ public class NewsController {
      * Update infoQ weekly news
      */
     @PostMapping("/news/updateInfoQNewsWeekly")
-    @Scheduled(cron = "${schedule.updateEveryFriday}")
+    //@Scheduled(cron = "${schedule.updateEveryFriday}")
     public void updateInfoQNewsWeekly() throws FeedException, IOException {
         newsService.updateInfoQNewsWeekly();
     }

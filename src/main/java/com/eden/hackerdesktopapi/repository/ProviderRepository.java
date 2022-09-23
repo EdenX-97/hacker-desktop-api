@@ -1,6 +1,5 @@
 package com.eden.hackerdesktopapi.repository;
 
-import com.eden.hackerdesktopapi.constant.enums.ProviderEnum;
 import com.eden.hackerdesktopapi.model.Provider;
 import org.socialsignin.spring.data.dynamodb.repository.EnableScan;
 import org.springframework.data.repository.CrudRepository;

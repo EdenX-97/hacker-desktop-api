@@ -2,7 +2,6 @@ package com.eden.hackerdesktopapi.service.impl;
 
 import com.eden.hackerdesktopapi.constant.enums.ProviderEnum;
 import com.eden.hackerdesktopapi.model.Feed;
-import com.eden.hackerdesktopapi.model.News;
 import com.eden.hackerdesktopapi.model.Podcast;
 import com.eden.hackerdesktopapi.model.Provider;
 import com.eden.hackerdesktopapi.repository.FeedRepository;
@@ -17,9 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 

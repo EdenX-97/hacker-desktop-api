@@ -1,6 +1,6 @@
 # Server port setting
 server:
-  port: 8777
+  port: 8080
 
 # Logging setting
 logging:
