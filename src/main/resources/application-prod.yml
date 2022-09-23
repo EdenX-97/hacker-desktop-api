@@ -1,6 +1,0 @@
-# AWS DynamoDB Setting
-aws:
-  dynamodb:
-    accessKey: YOUR_ACCESS_KEY
-    secretKey: YOUR_SECRET_KEY
-    region: YOUR_REGION
