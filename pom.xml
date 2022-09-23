@@ -23,6 +23,9 @@
 			<properties>
 				<env>dev</env>
 			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 		</profile>
 		<profile>
 			<id>prod</id>
@@ -148,7 +151,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>hackerDesktop-${env}</finalName>
+		<finalName>hackerDesktopApi</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
