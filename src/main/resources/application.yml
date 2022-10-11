@@ -26,10 +26,3 @@ jwt:
 # All scheduling
 schedule:
   updateEveryFriday: 0 0 1,6,12,18 ? * 5 # Every friday 1,6,12,18 o'clock
-
-# AWS DynamoDB Setting
-aws:
-  dynamodb:
-    accessKey: AKIARQMBEX7R2SSXQXXI
-    secretKey: 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
-    region: ap-southeast-2

@@ -17,23 +17,23 @@
 		<java.version>1.8</java.version>
 	</properties>
 	<!-- different environments -->
-<!--	<profiles>-->
-<!--		<profile>-->
-<!--			<id>dev</id>-->
-<!--			<properties>-->
-<!--				<env>dev</env>-->
-<!--			</properties>-->
-<!--			<activation>-->
-<!--				<activeByDefault>true</activeByDefault>-->
-<!--			</activation>-->
-<!--		</profile>-->
-<!--		<profile>-->
-<!--			<id>prod</id>-->
-<!--			<properties>-->
-<!--				<env>prod</env>-->
-<!--			</properties>-->
-<!--		</profile>-->
-<!--	</profiles>-->
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<env>dev</env>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<env>prod</env>
+			</properties>
+		</profile>
+	</profiles>
 
 	<dependencyManagement>
 		<dependencies>
@@ -159,7 +159,7 @@
 				<includes>
 					<include>**/*.xml</include>
 					<include>application.yml</include>
-<!--					<include>application-${env}.yml</include>-->
+					<include>application-${env}.yml</include>
 				</includes>
 			</resource>
 		</resources>
